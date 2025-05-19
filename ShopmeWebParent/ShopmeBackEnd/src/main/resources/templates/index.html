@@ -9,8 +9,8 @@
 
 	<!-- th:atributo para garantir que o caminho será resolvido corretamente pelo Spring -->
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}" />
-	<script type="text/javascript" th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.min.js}"></script>
-	<script type="text/javascript" th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
 </head>
 <body>
 <header class="container-fluid">
@@ -19,7 +19,7 @@
 			<img th:src="@{/img/logo_small.png}" alt="Logo da Empresa">
 		</a>
 
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-target="#navbarNav">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -68,8 +68,11 @@
 	<h1> Painel de Controle</h1>
 </header>
 
-<footer>
-	<p>Altiva painel de controle - Copyright &copy; 2025 Sua conquista, nosso orgulho. </p>
+<footer class="bg-dark text-white text-center py-4 mt-auto">
+	<div class="container">
+		<p class="mb-1">&copy; 2024 Altiva Painel de Controle. Todos os direitos reservados.</p>
+		<p class="mb-0">Feito com <span class="text-danger">&hearts;</span> por <strong>Dev Atomic</strong></p>
+	</div>
 </footer>
 </body>
 </html>

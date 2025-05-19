@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="description" content="Comércio eletrônico">
+  <title>Painel Admin</title>
+
+  <!-- th:atributo para garantir que o caminho será resolvido corretamente pelo Spring -->
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}" />
+  <script type="text/javascript" th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
+  <script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+</head>
+<body>
+<header class="container-fluid">
+  <nav class="navbar navbar-expand-lg bg-black navbar-dark ">
+    <a class="navbar-brand" th:href="@{/}">
+      <img th:src="@{/img/logo_small.png}" alt="Logo da Empresa">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/categorias}">Categorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/marcas}">Marcas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/produtos}">Produtos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/clientes}">Clientes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/envio}">Envio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/pedidos}">Pedidos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/relatorios}">Relatorios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/artigos}">Artigos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/menus}">Menus</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/configuracoes}">Configurações</a>
+        </li>
+        <li class="nav-item">
+          <img th:src="@{/img/logo_small.png}" alt="Perfil do Usuario">
+          <a class="nav-link" th:href="@{/}"></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <h2> Gerenciar Usuarios</h2>
+</header>
+
+<main>
+
+  <div class="table-responsive-xl">
+    <table class="table table-striped table-hover">
+      <caption>
+        Usuarios
+      </caption>
+      <thead class="table-hover table-dark ">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Primeiro Nome</th>
+        <th scope="col">Ultimo Nome</th>
+        <th scope="col">Papel Perfil</th>
+        <th scope="col">Ativo</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr th:each="usuario : ${listaDeUsuarios}">
+          <td th:text="${usuario.id}"></td>
+          <td></td>
+          <td th:text="${usuario.primeiroNome}"></td>
+          <td th:text="${usuario.ultimoNome}"></td>
+          <td th:text="${usuario.papelPerfils}"></td>
+          <td th:text="${usuario.ativo}"></td>
+          <td>
+            Editar &nbsp Excluir
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+<footer>
+  <p>Altiva painel de controle - Copyright &copy; 2025 Sua conquista, nosso orgulho. </p>
+</footer>
+</body>
+</html>

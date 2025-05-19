@@ -78,8 +78,6 @@ public class Papel_Perfil implements Serializable {
 
     @Override
     public String toString() {
-        return "Papel_Perfil{" +
-                "nome='" + nome + '\'' +
-                '}';
+        return this.nome;
     }
 }
