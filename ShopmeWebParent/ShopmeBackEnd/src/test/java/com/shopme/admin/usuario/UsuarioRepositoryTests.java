@@ -100,4 +100,12 @@ public class UsuarioRepositoryTests {
         repository.deleteById(2);
 
     }
+
+    @Test
+    public void testBuscarUsuarioPorEmail(){
+        String email = "123@testegmail.com";
+        Usuario usuario = repository.findByEmail(email);
+
+        assertThat(usuario).isNotNull();
+    }
 }
