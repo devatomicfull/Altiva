@@ -9,6 +9,8 @@
 
   <!-- th:atributo para garantir que o caminho será resolvido corretamente pelo Spring -->
   <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}" />
+  <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
   <script type="text/javascript" th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
   <script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
 </head>
@@ -88,7 +90,7 @@
       <thead class="table-hover table-dark ">
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Foto</th>
+        <th scope="col"> Foto</th>
         <th scope="col">Primeiro Nome</th>
         <th scope="col">Ultimo Nome</th>
         <th scope="col">Papel Perfil</th>
@@ -99,15 +101,21 @@
       <tbody>
         <tr th:each="usuario : ${listaDeUsuarios}">
           <td th:text="${usuario.id}"></td>
-          <td></td>
+          <td><span class="fa-solid fa-image-portrait fa-5x icon-lilas"></span></td>
           <td th:text="${usuario.primeiroNome}"></td>
           <td th:text="${usuario.ultimoNome}"></td>
           <td th:text="${usuario.papelPerfils}"></td>
-          <td>
+          <td class="text-start">
+            <a class="fa-solid fa-check-circle fa-2x"
+               th:classappend="${usuario.ativo} ? ' text-success' : ' text-danger'"></a>
             <span th:text="${usuario.ativo} ? 'Verdadeiro' : 'Falso'"></span>
           </td>
           <td>
-            Editar &nbsp Excluir
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="#" class="fa-solid fa-pen-to-square fa-3x icon-green me-3"></a>
+              &nbsp;
+              <a href="#" class="fa-solid fa-trash fa-3x icon-red"></a>
+            </div>
           </td>
         </tr>
       </tbody>
