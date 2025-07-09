@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UsuarioService {
@@ -27,7 +28,20 @@ public class UsuarioService {
 
 
     public void save(Usuario usuario) {
-        encodeSenha(usuario);
+        boolean estaAtualizandoUsuario = (usuario.getId() != null);
+
+        if (estaAtualizandoUsuario) {
+            Usuario existiUsuario = usuario_UsuarioRepository.findById(usuario.getId()).get();
+
+            if (usuario.getSenha().isEmpty()){
+                usuario.setSenha(existiUsuario.getSenha());
+            }else {
+                encodeSenha(usuario);
+            }
+        }else {
+            encodeSenha(usuario);
+        }
+
         usuario_UsuarioRepository.save(usuario);
     }
 
@@ -36,8 +50,27 @@ public class UsuarioService {
         usuario.setSenha(encodedSenha);
     }
 
-    public boolean existeEsseEmailUnico(String email) {
+    public boolean existeEsseEmailUnico(Integer id, String email) {
         Usuario usuarioDoEmail = usuario_UsuarioRepository.findByEmail(email);
-        return usuarioDoEmail == null;
+
+        if(usuarioDoEmail == null) return true;
+
+        boolean estaCriandoNovo = (id == null);
+
+        if (estaCriandoNovo){
+            if (usuarioDoEmail != null ) return false;
+        }else{
+            if (usuarioDoEmail.getId() != id) return false;
+        }
+
+        return true;
+    }
+
+    public Usuario get(Integer id) throws UsuarioNotFoundException {
+        try{
+            return usuario_UsuarioRepository.findById(id).get();
+        }catch (NoSuchElementException ex){
+            throw new UsuarioNotFoundException("Não foi possível encontrar nenhum usuário com ID " + id);
+        }
     }
 }

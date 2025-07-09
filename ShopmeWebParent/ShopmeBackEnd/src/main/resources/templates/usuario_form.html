@@ -8,7 +8,7 @@
     <!-- meta name="_csrf" th:content="${_csrf.token}"/ -->
     <!-- meta name="_csrf_header" th:content="${_csrf.headerName}"/ -->
 
-    <title>Criar Novo Usuario</title>
+    <title>[[${pageTitle}]]</title>
 
     <!-- th:atributo para garantir que o caminho será resolvido corretamente pelo Spring -->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.5/css/bootstrap.min.css}" />
@@ -72,12 +72,16 @@
 
 <main>
 
+    <div>
+        <h2> Gerenciar Usuarios | [[${pageTitle}]]</h2>
+    </div>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <form th:action="@{/usuarios/salvar}" th:object="${usuario}" method="post" onsubmit="return checkEmailUnico(this)"
                       class="card shadow-sm border-0" >
-                   -
+
+                    <input type="hidden" th:field="*{id}"/>
 
                     <div class="card-header bg-primary text-white">
                         <h5 class="mb-0">Cadastro de Usuário</h5>
@@ -105,8 +109,11 @@
 
                         <div class="col-md-6">
                             <label class="form-label" for="senha">Senha</label>
-                            <input th:field="*{senha}" class="form-control" type="password" id="senha"
-                                   placeholder="Senha" minlength="0" maxlength="128">
+                            <input th:if="${usuario.id == null}" th:field="*{senha}" class="form-control" type="password" id="senha"
+                                   placeholder="Senha" minlength="0" maxlength="20" required>
+
+                            <input th:if="${usuario.id != null}" th:field="*{senha}" class="form-control" type="password"
+                                   minlength="0" maxlength="20">
                         </div>
 
                         <div class="col-12 mt-3">
@@ -179,8 +186,10 @@
     function checkEmailUnico(form) {
         const url = "[[@{/usuarios/check-email}]]";
         const userEmail = $("#email").val();
+        const usuarioId = $("#id").val();
         const csrfValor = $("input[name='_csrf']").val();
-        const params = { email: userEmail, _csrf: csrfValor };
+
+        const params = { id: usuarioId, email: userEmail, _csrf: csrfValor };
 
         $.post(url, params, function (response) {
             if (response == "OK"){
