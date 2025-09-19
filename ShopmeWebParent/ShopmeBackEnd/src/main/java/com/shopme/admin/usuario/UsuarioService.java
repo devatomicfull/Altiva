@@ -73,4 +73,24 @@ public class UsuarioService {
             throw new UsuarioNotFoundException("Não foi possível encontrar nenhum usuário com ID " + id);
         }
     }
+
+    /**
+     * Exclui um usuário com base no seu ID.
+     *
+     * <p>Caso não seja encontrado nenhum usuário com o ID informado,
+     * é lançada uma {@link UsuarioNotFoundException} com uma mensagem personalizada.</p>
+     *
+     * @param id Identificador único do usuário a ser excluído
+     * @throws UsuarioNotFoundException se não existir nenhum usuário com o ID informado
+     */
+    public void delete(Integer id) throws UsuarioNotFoundException {
+        Long countById = usuario_UsuarioRepository.countById(id);
+        if (countById == null || countById == 0) {
+            // Mensagem para exceção personalizada
+            throw new UsuarioNotFoundException("Não foi possível encontrar nenhum usuário com o ID " + id);
+        }
+        usuario_UsuarioRepository.deleteById(id);
+    }
+
+
 }
