@@ -108,4 +108,21 @@ public class UsuarioRepositoryTests {
 
         assertThat(usuario).isNotNull();
     }
+
+    @Test // Indica que este método é um teste unitário (JUnit executará este método)
+    public void testCountById() {
+
+        // Define um ID específico para verificar no banco de dados
+        Integer id = 2;
+
+        // Chama o método do repositório para contar quantos registros existem com esse ID
+        // Esse método deve retornar um Long representando o número de registros encontrados
+        Long countById = repository.countById(id);
+
+        // Verifica (asserção) se o valor retornado não é nulo
+        // e se é maior que zero (ou seja, existe pelo menos um registro com esse ID)
+        assertThat(countById)
+                .isNotNull()       // o valor retornado não pode ser nulo
+                .isGreaterThan(0); // deve ser maior que zero (registro existe)
+    }
 }
